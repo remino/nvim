@@ -47,6 +47,14 @@ return {
     },
   },
 
+  {
+    "numToStr/Comment.nvim",
+    lazy = false,
+    opts = {
+      -- add any options here
+    },
+  },
+
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
