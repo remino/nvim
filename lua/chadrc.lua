@@ -14,4 +14,13 @@ M.base46 = {
 	-- },
 }
 
+M.ui = {
+	statusline = {
+		separator_style = "block",
+		modules = {
+			cursor = "%#StText# L%l C%c %p%% ",
+		},
+	},
+}
+
 return M
