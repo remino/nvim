@@ -50,26 +50,26 @@ return {
 		keys = {
 			-- <C-j> & <C-k> just won't work here. Don't know why. Added them to mappings.lua instead.
 			{
-				"<C-j>",
+				"<M-j>",
 				"<Cmd>MultipleCursorsAddDown<CR>",
 				mode = { "n", "x" },
 				desc = "Add cursor and move down",
 			},
 			{
-				"<C-k>",
+				"<M-k>",
 				"<Cmd>MultipleCursorsAddUp<CR>",
 				mode = { "n", "x" },
 				desc = "Add cursor and move up",
 			},
 
 			{
-				"<C-Up>",
+				"<M-Up>",
 				"<Cmd>MultipleCursorsAddUp<CR>",
 				mode = { "n", "i", "x" },
 				desc = "Add cursor and move up",
 			},
 			{
-				"<C-Down>",
+				"<M-Down>",
 				"<Cmd>MultipleCursorsAddDown<CR>",
 				mode = { "n", "i", "x" },
 				desc = "Add cursor and move down",
