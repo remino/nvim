@@ -38,6 +38,7 @@ return {
 		json = { "prettier" },
 		lua = { "stylua" },
 		markdown = { "prettier" },
+		ruby = { "rufo" },
 		python = { "isort", "black" },
 		sh = { "shfmt" },
 		svelte = { "prettier" },
