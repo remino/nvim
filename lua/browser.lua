@@ -3,7 +3,7 @@ local action_state = require "telescope.actions.state"
 
 local function browse(directory)
 	require("telescope.builtin").find_files {
-		prompt_title = "Browse and Paste",
+		prompt_title = directory,
 		cwd = directory,
 		previewer = true,
 		attach_mappings = function(_, map)
