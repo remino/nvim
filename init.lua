@@ -37,6 +37,10 @@ vim.schedule(function()
 	require "mappings"
 end)
 
+if vim.loop.fs_stat(vim.fn.stdpath "config" .. "/lua/local.lua") then
+	require "local"
+end
+
 vim.api.nvim_create_autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
