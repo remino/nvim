@@ -187,4 +187,15 @@ return {
 			vim.g.transparent_enabled = true
 		end,
 	},
+	{
+		"svampkorg/moody.nvim",
+		event = { "ModeChanged", "BufWinEnter", "WinEnter" },
+		dependencies = {
+			-- or whatever "colorscheme" you use to setup your HL groups :)
+			-- Colours can also be set within setup, in which case this is redundant.
+			"catppuccin/nvim",
+			-- for seeing Moody's take on folds
+			"kevinhwang91/nvim-ufo",
+		},
+	},
 }
