@@ -173,4 +173,11 @@ return {
 			}
 		end,
 	},
+	{
+		"olrtg/nvim-emmet",
+		lazy = false,
+		config = function()
+			vim.keymap.set({ "n", "v" }, "<leader>mt", require("nvim-emmet").wrap_with_abbreviation)
+		end,
+	},
 }
