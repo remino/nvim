@@ -180,4 +180,11 @@ return {
 			vim.keymap.set({ "n", "v" }, "<leader>mt", require("nvim-emmet").wrap_with_abbreviation)
 		end,
 	},
+	{
+		"xiyaowong/transparent.nvim",
+		lazy = false,
+		config = function()
+			vim.g.transparent_enabled = true
+		end,
+	},
 }
