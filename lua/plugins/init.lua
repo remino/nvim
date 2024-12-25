@@ -198,4 +198,8 @@ return {
 			"kevinhwang91/nvim-ufo",
 		},
 	},
+	{
+		"slim-template/vim-slim",
+		lazy = false,
+	},
 }
