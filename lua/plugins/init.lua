@@ -181,13 +181,6 @@ return {
 		end,
 	},
 	{
-		"xiyaowong/transparent.nvim",
-		lazy = false,
-		config = function()
-			vim.g.transparent_enabled = true
-		end,
-	},
-	{
 		"svampkorg/moody.nvim",
 		event = { "ModeChanged", "BufWinEnter", "WinEnter" },
 		dependencies = {
