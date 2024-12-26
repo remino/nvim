@@ -202,4 +202,10 @@ return {
 			return {}
 		end,
 	},
+	{
+		"nvim-telescope/telescope.nvim",
+		opts = function()
+			return require "configs.telescope"
+		end,
+	},
 }
