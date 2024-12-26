@@ -195,4 +195,11 @@ return {
 		"slim-template/vim-slim",
 		lazy = false,
 	},
+	{
+		"RaafatTurki/hex.nvim",
+		lazy = false,
+		opts = function()
+			return {}
+		end,
+	},
 }
