@@ -1,6 +1,8 @@
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
+vim.g.scraps_dir = vim.fn.expand((os.getenv("XDG_DATA_HOME") or "~/.local/share") .. "/scraps")
+
 local function browse(directory)
 	require("telescope.builtin").find_files {
 		prompt_title = directory,
