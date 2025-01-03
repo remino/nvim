@@ -208,4 +208,13 @@ return {
 			return require "configs.telescope"
 		end,
 	},
+	{
+		"remino/scraps.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		cmd = { "Scraps", "ScrapsConfigDir", "ScrapsCurrentDir" },
+		opts = {},
+		keys = {
+			{ "<leader>fs", ":Scraps<CR>", desc = "Browse scraps" },
+		},
+	},
 }
