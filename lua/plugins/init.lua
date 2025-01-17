@@ -217,4 +217,11 @@ return {
 			{ "<leader>fs", ":Scraps<CR>", desc = "Browse scraps" },
 		},
 	},
+	{
+		"smithbm2316/centerpad.nvim",
+		cmd = { "Centerpad" },
+		keys = {
+			{ "<leader>cp", "<Cmd>Centerpad<CR>", desc = "Center buffer window" },
+		},
+	},
 }
