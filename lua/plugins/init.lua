@@ -38,11 +38,6 @@ return {
 	},
 
 	{
-		"github/copilot.vim",
-		lazy = false,
-	},
-
-	{
 		"brenton-leighton/multiple-cursors.nvim",
 		lazy = false,
 		version = "*", -- Use the latest tagged version
