@@ -47,6 +47,6 @@
   "ui": { "branch": "v3.0", "commit": "23cc288deaeafe6641f0092252dee25136616a47" },
   "vim-slim": { "branch": "master", "commit": "a0a57f75f20a03d5fa798484743e98f4af623926" },
   "volt": { "branch": "main", "commit": "1a7d6b1dfb2f176715ccc9e838be32d044f8a734" },
-  "which-key.nvim": { "branch": "main", "commit": "6cebd86917df559a88de0f806b2989799c6e6423" }
+  "which-key.nvim": { "branch": "main", "commit": "6cebd86917df559a88de0f806b2989799c6e6423" },
   "zen-mode.nvim": { "branch": "main", "commit": "863f150ca321b3dd8aa1a2b69b5f411a220e144f" }
 }
