@@ -15,7 +15,12 @@ return {
 			require("copilot").setup {}
 		end,
 		keys = {
-			{ "n", "<leader>cs", "<cmd>CopilotToggle<cr>", desc = "Toggle Copilot suggestions" },
+			{
+				"<leader>cs",
+				"<cmd>CopilotToggle<cr>",
+				mode = "n",
+				desc = "Toggle Copilot suggestions",
+			},
 		},
 	},
 }
