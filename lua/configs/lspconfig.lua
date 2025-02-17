@@ -7,9 +7,10 @@ local servers = {
 	"html",
 	"cssls",
 	"emmet_language_server",
+	"eslint",
 	"tailwindcss",
 	"ts_ls",
-	"vue",
+	"volar",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
