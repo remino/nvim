@@ -1,30 +1,19 @@
--- local highlight = {
--- 	"CursorColumn",
--- 	"Whitespace",
--- }
--- require("ibl").setup {
--- 	indent = { highlight = highlight, char = "" },
--- 	whitespace = {
--- 		highlight = highlight,
--- 		remove_blankline_trail = false,
--- 	},
--- 	scope = { enabled = false },
--- }
+local ibl = require "ibl"
 
 function IblDisable()
-	require("ibl").setup_buffer(0, {
+	ibl.setup_buffer(0, {
 		enabled = false,
 	})
 end
 
 function IblEnable()
-	require("ibl").setup_buffer(0, {
+	ibl.setup_buffer(0, {
 		enabled = true,
 	})
 end
 
 function IblToggle()
-	require("ibl").setup_buffer(0, {
+	ibl.setup_buffer(0, {
 		enabled = not require("ibl.config").get_config(0).enabled,
 	})
 end
@@ -64,7 +53,14 @@ end)
 
 vim.g.rainbow_delimiters = { highlight = highlight }
 
-require("ibl").setup {
-	indent = { highlight = highlight },
-	scope = { enabled = true, highlight = "CurrentScope" },
+ibl.setup {
+	indent = {
+		char = "▏",
+		-- highlight = highlight,
+	},
+	whitespace = {
+		highlight = highlight,
+		remove_blankline_trail = false,
+	},
+	scope = { enabled = true, highlight = highlight },
 }
