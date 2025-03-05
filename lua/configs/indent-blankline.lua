@@ -59,9 +59,10 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 	vim.api.nvim_set_hl(0, "RainbowLightCyan", { fg = "#E0FFFF" })
 	vim.api.nvim_set_hl(0, "RainbowDeepPink", { fg = "#FF1493" })
 	vim.api.nvim_set_hl(0, "RainbowVividMagenta", { fg = "#FF2B2B" })
+	vim.api.nvim_set_hl(0, "CurrentScope", { fg = "#FFD700" })
 end)
 
 require("ibl").setup {
 	indent = { highlight = highlight },
-	scope = { enabled = false },
+	scope = { enabled = true, highlight = "CurrentScope" },
 }
