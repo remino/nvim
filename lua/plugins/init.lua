@@ -226,4 +226,8 @@ return {
 			{ "<leader>cp", "<Cmd>Centerpad<CR>", desc = "Center buffer window" },
 		},
 	},
+	{
+		"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+		lazy = false,
+	},
 }

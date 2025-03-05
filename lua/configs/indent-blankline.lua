@@ -62,6 +62,8 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 	vim.api.nvim_set_hl(0, "CurrentScope", { fg = "#FFD700" })
 end)
 
+vim.g.rainbow_delimiters = { highlight = highlight }
+
 require("ibl").setup {
 	indent = { highlight = highlight },
 	scope = { enabled = true, highlight = "CurrentScope" },
