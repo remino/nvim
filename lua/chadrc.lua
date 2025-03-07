@@ -15,6 +15,7 @@ M.base46 = {
 	-- },
 }
 
+-- M.nvdash = { load_on_startup = true }
 M.ui = {
 	statusline = {
 		separator_style = "block",
@@ -22,6 +23,9 @@ M.ui = {
 			cursor = "%#StText# L%l C%c %p%% ",
 		},
 	},
+	--       tabufline = {
+	--          lazyload = false
+	--      }
 }
 
 return M
