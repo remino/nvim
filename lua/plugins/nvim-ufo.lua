@@ -36,20 +36,6 @@ return {
 	dependencies = {
 		"kevinhwang91/promise-async",
 	},
-	-- keys = {
-	-- 	{
-	-- 		"zR",
-	-- 		require("ufo").openAllFolds,
-	-- 		mode = "n",
-	-- 		desc = "Open all folds",
-	-- 	},
-	-- 	{
-	-- 		"zM",
-	-- 		require("ufo").closeAllFolds,
-	-- 		mode = "n",
-	-- 		desc = "Close all folds",
-	-- 	},
-	-- },
 	opts = {
 		fold_virt_text_handler = foldHandler,
 		provider_selector = function(bufnr, filetype, buftype)
