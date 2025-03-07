@@ -23,6 +23,12 @@ M.ui = {
 			cursor = "%#StText# L%l C%c %p%% ",
 		},
 	},
+	cmp = {
+		format_colors = {
+			tailwind = true,
+		},
+		style = "atom_colored",
+	},
 	--       tabufline = {
 	--          lazyload = false
 	--      }
