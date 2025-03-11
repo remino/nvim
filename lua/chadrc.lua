@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "cyberpunk",
+	theme = "cyberwave",
 	transparency = true,
 
 	-- hl_override = {
