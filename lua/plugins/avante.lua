@@ -8,6 +8,11 @@ return {
 			-- add any opts here
 			provider = "copilot",
 			auto_suggestions_provider = "copilot",
+			mappings = {
+				suggestion = {
+					accept = "<C-y>",
+				},
+			},
 		},
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		build = "make",
