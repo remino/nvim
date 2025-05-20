@@ -44,6 +44,7 @@ return {
 		svelte = { "prettier" },
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
+		vue = { "prettier" },
 		yaml = { "prettier" },
 	},
 
