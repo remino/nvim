@@ -1,5 +1,5 @@
 -- See this article for details on lspconfig.lua:
--- (URL TBD)
+-- https://remino.net/bits/neovim-vue-3-typescript/
 
 -- Load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
