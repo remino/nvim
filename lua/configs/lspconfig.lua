@@ -1,12 +1,18 @@
--- load defaults i.e lua_lsp
+-- See this article for details on lspconfig.lua:
+-- (URL TBD)
+
+-- Load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
 local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
+-- Dynamically point to the path of @vue/language-server
+-- which contains @vue/typescript-plugin
 local vue_typescript_plugin =
 	vim.fn.expand(vim.fn.stdpath "data" .. "/mason/packages/vue-language-server/node_modules/@vue/language-server")
 
+-- Set up ts_ls LSP with @vue/typescript-plugin
 lspconfig.ts_ls.setup {
 	on_attach = nvlsp.on_attach,
 	on_init = nvlsp.on_init,
@@ -44,6 +50,7 @@ lspconfig.ts_ls.setup {
 	},
 }
 
+-- Setup other LSPs with defaults
 local servers = {
 	"html",
 	"cssls",
@@ -62,9 +69,11 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
--- Thanks to @naborisk for this bit
+-- Thanks to @naborisk for the following
+
+-- https://github.com/naborisk/dotfiles/blob/383041e06c070d78e4d990b662cfa13d35ce0a64/nvim/after/plugin/nvim-lspconfig.lua#L158
 vim.diagnostic.config {
-	virtual_text = false, -- show text after diagnostics
+	virtual_text = false, -- Show text after diagnostics
 	signs = true,
 	update_in_insert = false,
 	underline = true,
@@ -75,6 +84,7 @@ vim.diagnostic.config {
 -- Show diagnostics text on cursor hold
 local lspGroup = vim.api.nvim_create_augroup("Lsp", { clear = true })
 
+-- https://github.com/naborisk/dotfiles/blob/383041e06c070d78e4d990b662cfa13d35ce0a64/nvim/after/plugin/nvim-lspconfig.lua#L169-L172
 vim.api.nvim_create_autocmd("CursorHold", {
 	command = "lua vim.diagnostic.open_float()",
 	group = lspGroup,
