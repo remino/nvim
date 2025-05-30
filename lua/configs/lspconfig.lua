@@ -50,10 +50,24 @@ lspconfig.ts_ls.setup {
 	},
 }
 
+-- Set up CSS LSP
+lspconfig.cssls.setup {
+	on_attach = nvlsp.on_attach,
+	on_init = nvlsp.on_init,
+	capabilities = nvlsp.capabilities,
+	settings = {
+		css = {
+			lint = {
+				-- Disable check of at rules in CSS because of Tailwind
+				unknownAtRules = "ignore",
+			},
+		},
+	},
+}
+
 -- Setup other LSPs with defaults
 local servers = {
 	"html",
-	"cssls",
 	"emmet_language_server",
 	"eslint",
 	"tailwindcss",
