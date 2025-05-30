@@ -92,7 +92,10 @@ vim.diagnostic.config {
 	update_in_insert = false,
 	underline = true,
 	severity_sort = false,
-	float = true,
+	float = {
+		border = "rounded",
+		header = false,
+	},
 }
 
 -- Show diagnostics text on cursor hold
