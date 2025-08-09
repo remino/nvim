@@ -30,6 +30,7 @@ end, {
 
 return {
 	formatters_by_ft = {
+		astro = { "prettier" },
 		css = { "prettier" },
 		graphql = { "prettier" },
 		html = { "prettier" },
