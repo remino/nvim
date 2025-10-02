@@ -4,7 +4,6 @@
 -- Load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- Dynamically point to the path of @vue/language-server
@@ -13,7 +12,7 @@ local vue_typescript_plugin =
 	vim.fn.expand(vim.fn.stdpath "data" .. "/mason/packages/vue-language-server/node_modules/@vue/language-server")
 
 -- Set up ts_ls LSP with @vue/typescript-plugin
-lspconfig.ts_ls.setup {
+vim.lsp.config("ts_ls", {
 	on_attach = nvlsp.on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = nvlsp.capabilities,
@@ -48,10 +47,10 @@ lspconfig.ts_ls.setup {
 			},
 		},
 	},
-}
+})
 
 -- Set up CSS LSP
-lspconfig.cssls.setup {
+vim.lsp.config("cssls", {
 	on_attach = nvlsp.on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = nvlsp.capabilities,
@@ -63,7 +62,7 @@ lspconfig.cssls.setup {
 			},
 		},
 	},
-}
+})
 
 -- Setup other LSPs with defaults
 local servers = {
@@ -76,7 +75,7 @@ local servers = {
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-	pcall(lspconfig[lsp].setup, {
+	pcall(vim.lsp.config, lsp, {
 		on_attach = nvlsp.on_attach,
 		on_init = nvlsp.on_init,
 		capabilities = nvlsp.capabilities,
