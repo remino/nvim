@@ -94,7 +94,7 @@ vim.diagnostic.config {
 	severity_sort = false,
 	float = {
 		border = "rounded",
-		header = false,
+		header = "",
 	},
 }
 
