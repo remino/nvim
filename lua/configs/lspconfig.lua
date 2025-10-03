@@ -74,7 +74,7 @@ local servers = {
 	"emmet_language_server",
 	"eslint",
 	"tailwindcss",
-	"volar",
+	"vue_ls",
 }
 
 -- lsps with default config
