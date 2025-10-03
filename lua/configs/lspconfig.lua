@@ -49,6 +49,8 @@ vim.lsp.config("ts_ls", {
 	},
 })
 
+vim.lsp.enable "ts_ls"
+
 -- Set up CSS LSP
 vim.lsp.config("cssls", {
 	on_attach = nvlsp.on_attach,
@@ -64,6 +66,8 @@ vim.lsp.config("cssls", {
 	},
 })
 
+vim.lsp.enable "cssls"
+
 -- Setup other LSPs with defaults
 local servers = {
 	"html",
@@ -75,11 +79,13 @@ local servers = {
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-	pcall(vim.lsp.config, lsp, {
+	vim.lsp.config(lsp, {
 		on_attach = nvlsp.on_attach,
 		on_init = nvlsp.on_init,
 		capabilities = nvlsp.capabilities,
 	})
+
+	vim.lsp.enable(lsp)
 end
 
 -- Thanks to @naborisk for the following
