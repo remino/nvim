@@ -41,6 +41,12 @@ if vim.loop.fs_stat(vim.fn.stdpath "config" .. "/lua/local.lua") then
 	require "local"
 end
 
+vim.filetype.add {
+	extension = {
+		bats = "bats",
+	},
+}
+
 vim.api.nvim_create_autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()

@@ -31,6 +31,7 @@ end, {
 return {
 	formatters_by_ft = {
 		astro = { "prettier" },
+		bats = { "shfmt_bats" },
 		css = { "prettier" },
 		graphql = { "prettier" },
 		html = { "prettier" },
@@ -47,6 +48,13 @@ return {
 		typescriptreact = { "prettier" },
 		vue = { "prettier" },
 		yaml = { "prettier" },
+	},
+	formatters = {
+		shfmt_bats = {
+			command = "shfmt",
+			args = { "-ln", "bats" },
+			stdin = true,
+		},
 	},
 
 	format_on_save = function(bufnr)
