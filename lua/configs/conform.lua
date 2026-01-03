@@ -31,6 +31,7 @@ end, {
 return {
 	formatters_by_ft = {
 		astro = { "prettier" },
+		bash = { "shfmt_bash" },
 		bats = { "shfmt_bats" },
 		css = { "prettier" },
 		graphql = { "prettier" },
@@ -50,6 +51,11 @@ return {
 		yaml = { "prettier" },
 	},
 	formatters = {
+		shfmt_bash = {
+			command = "shfmt",
+			args = { "-ln", "bash" },
+			stdin = true,
+		},
 		shfmt_bats = {
 			command = "shfmt",
 			args = { "-ln", "bats" },

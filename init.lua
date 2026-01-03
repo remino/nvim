@@ -47,6 +47,16 @@ vim.filetype.add {
 	},
 }
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*",
+	callback = function()
+		local first = vim.fn.getline(1)
+		if first:match "^#!.*[/ ]bash" then
+			vim.bo.filetype = "bash"
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
