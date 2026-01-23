@@ -6,6 +6,25 @@ require("nvchad.configs.lspconfig").defaults()
 
 local nvlsp = require "nvchad.configs.lspconfig"
 
+-- Configure ts_ls before enabling it
+vim.lsp.config("ts_ls", {
+	on_attach = nvlsp.on_attach,
+	on_init = nvlsp.on_init,
+	capabilities = nvlsp.capabilities,
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
+	root_dir = function(fname)
+		local util = require "lspconfig.util"
+		return util.root_pattern("tsconfig.json", "package.json", ".git")(fname)
+	end,
+})
+
 vim.lsp.enable { "ts_ls", "cssls" }
 
 -- Setup other LSPs with defaults
