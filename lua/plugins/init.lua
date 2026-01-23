@@ -117,9 +117,12 @@ return {
 				"vim",
 				"lua",
 				"vimdoc",
+				"astro",
 				"html",
 				"css",
 				"javascript",
+				"typescript",
+				"tsx",
 			},
 			highlight = {
 				enable = true,

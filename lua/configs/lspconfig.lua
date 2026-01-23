@@ -29,6 +29,7 @@ vim.lsp.enable { "ts_ls", "cssls" }
 
 -- Setup other LSPs with defaults
 local servers = {
+	"astro",
 	"html",
 	"emmet_language_server",
 	"eslint",
