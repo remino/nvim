@@ -12,6 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.colorcolumn = "80,120"
 
+if vim.loop.fs_stat(vim.fn.stdpath "config" .. "/lua/local.lua") then
+	require "local"
+end
+
 local lazy_config = require "configs.lazy"
 
 -- load plugins
@@ -36,10 +40,6 @@ require "nvchad.autocmds"
 vim.schedule(function()
 	require "mappings"
 end)
-
-if vim.loop.fs_stat(vim.fn.stdpath "config" .. "/lua/local.lua") then
-	require "local"
-end
 
 vim.filetype.add {
 	extension = {
