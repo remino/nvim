@@ -41,8 +41,13 @@ local function get_minuet_config()
 		},
 	}
 
-	local local_config = type(vim.g.local_minuet_config) == "table" and vim.g.local_minuet_config or {}
-	return vim.tbl_deep_extend("force", config, local_config)
+	config = require("utils.local_config").merge(config, "local.minuet")
+
+	if type(vim.g.local_minuet_config) == "table" then
+		config = vim.tbl_deep_extend("force", config, vim.g.local_minuet_config)
+	end
+
+	return config
 end
 
 return {

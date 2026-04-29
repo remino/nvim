@@ -19,4 +19,4 @@ config.pickers = {
 	},
 }
 
-return config
+return require("utils.local_config").merge(config, "local.telescope")

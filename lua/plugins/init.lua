@@ -1,3 +1,10 @@
+local local_config = require "utils.local_config"
+
+local orgmode_config = local_config.merge({
+	enabled = false,
+	opts = {},
+}, "local.orgmode")
+
 return {
 	{
 		"stevearc/conform.nvim",
@@ -111,14 +118,11 @@ return {
 	},
 	{
 		"nvim-orgmode/orgmode",
+		enabled = orgmode_config.enabled,
 		event = "VeryLazy",
 		ft = { "org" },
 		config = function()
-			-- Setup orgmode
-			require("orgmode").setup {
-				org_agenda_files = "~/orgfiles/**/*",
-				org_default_notes_file = "~/orgfiles/refile.org",
-			}
+			require("orgmode").setup(orgmode_config.opts)
 
 			-- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
 			-- add ~org~ to ignore_install

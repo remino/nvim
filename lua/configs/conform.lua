@@ -28,7 +28,7 @@ end, {
 	desc = "Re-enable autoformat-on-save",
 })
 
-return {
+local config = {
 	formatters_by_ft = {
 		astro = { "prettier" },
 		bash = { "shfmt" },
@@ -52,11 +52,11 @@ return {
 	},
 
 	format_on_save = function(bufnr)
-		-- print debug
-		print(vim.g.disable_autoformat)
 		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
 			return
 		end
 		return { timeout_ms = 20000, lsp_format = "fallback" }
 	end,
 }
+
+return require("utils.local_config").merge(config, "local.conform")

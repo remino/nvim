@@ -12,14 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.colorcolumn = "80,120"
 
-if vim.loop.fs_stat(vim.fn.stdpath "config" .. "/lua/local.lua") then
-	require "local"
-end
-
+local local_config = require "utils.local_config"
 local lazy_config = require "configs.lazy"
 
--- load plugins
-require("lazy").setup({
+local plugins = {
 	{
 		"NvChad/NvChad",
 		lazy = false,
@@ -28,44 +24,29 @@ require("lazy").setup({
 	},
 
 	{ import = "plugins" },
-}, lazy_config)
+}
+
+local_config.run "local"
+local_config.run "local.before"
+local_config.extend(plugins, "local.plugins")
+
+-- load plugins
+require("lazy").setup(plugins, lazy_config)
 
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
+local_config.run "local.options"
+
 require "nvchad.autocmds"
+require "core.filetypes"
+require "core.autocmds"
+require "core.commands"
 
 vim.schedule(function()
 	require "mappings"
+	local_config.run "local.mappings"
+	local_config.run "local.after"
 end)
-
-vim.filetype.add {
-	extension = {
-		bats = "bats",
-	},
-}
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*",
-	callback = function()
-		local first = vim.fn.getline(1)
-		if first:match "^#!.*[/ ]bash" then
-			vim.bo.filetype = "bash"
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-	pattern = "*",
-	callback = function()
-		if vim.fn.argc() == 0 and vim.fn.line2byte "$" == -1 then
-			vim.cmd "Nvdash"
-		end
-	end,
-})
-
-vim.api.nvim_create_user_command("FilePath", function()
-	print(vim.fn.expand "%:p")
-end, {})
