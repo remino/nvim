@@ -12,6 +12,8 @@ belong in ignored local files:
 
 The old `lua/local.lua` entry point still loads before plugins for compatibility.
 For new overrides, prefer the more specific modules below.
+`lua/local` is ignored without a trailing slash, so it can be either a directory
+or a symlink.
 
 ### Startup hooks
 
