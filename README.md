@@ -144,3 +144,19 @@ return {
 	context_window = 1024,
 }
 ```
+
+### Avante
+
+Avante is included as an optional plugin spec, but disabled by default because it
+is provider-specific and has extra build/runtime dependencies. Enable it locally:
+
+```lua
+-- lua/local/avante.lua
+return {
+	enabled = true,
+	opts = {
+		provider = "copilot",
+		auto_suggestions_provider = "copilot",
+	},
+}
+```
