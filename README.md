@@ -134,14 +134,23 @@ return {
 
 ### Minuet
 
-Minuet reads environment variables by default and can also be customized with
-`lua/local/minuet.lua`:
+Minuet can be customized locally with `lua/local/llm.lua` as the shared source
+of truth, then wired through `lua/local/minuet.lua`:
 
 ```lua
 -- lua/local/minuet.lua
+local llm = require("local.llm")
+
 return {
-	provider = "openai_compatible",
-	context_window = 1024,
+	provider = "openai_fim_compatible",
+	provider_options = {
+		openai_fim_compatible = {
+			api_key = llm.api_key,
+			name = "Ollama",
+			end_point = llm.minuet_endpoint,
+			model = llm.minuet_model,
+		},
+	},
 }
 ```
 
@@ -152,11 +161,20 @@ is provider-specific and has extra build/runtime dependencies. Enable it locally
 
 ```lua
 -- lua/local/avante.lua
+local llm = require("local.llm")
+
 return {
 	enabled = true,
 	opts = {
-		provider = "copilot",
-		auto_suggestions_provider = "copilot",
+		mode = "legacy",
+		provider = "ollama",
+		auto_suggestions_provider = "ollama",
+		providers = {
+			ollama = {
+				endpoint = llm.endpoint,
+				model = llm.avante_model,
+			},
+		},
 	},
 }
 ```
