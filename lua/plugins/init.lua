@@ -208,6 +208,14 @@ return {
 	{
 		"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
 		lazy = false,
+		init = function()
+			vim.g.rainbow_delimiters = vim.tbl_deep_extend("force", vim.g.rainbow_delimiters or {}, {
+				condition = function(bufnr)
+					local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+					return ok and parser ~= nil and vim.bo[bufnr].ft ~= "nvdash"
+				end,
+			})
+		end,
 	},
 	{
 		"luckasRanarison/tailwind-tools.nvim",

@@ -51,7 +51,13 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 	vim.api.nvim_set_hl(0, "CurrentScope", { fg = "#FFD700" })
 end)
 
-vim.g.rainbow_delimiters = { highlight = highlight }
+vim.g.rainbow_delimiters = {
+	highlight = highlight,
+	condition = function(bufnr)
+		local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+		return ok and parser ~= nil and vim.bo[bufnr].ft ~= "nvdash"
+	end,
+}
 
 ibl.setup {
 	indent = {
