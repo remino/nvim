@@ -12,6 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.colorcolumn = "80,120"
 
+require "core.treesitter_compat"
+
 local local_config = require "utils.local_config"
 local lazy_config = require "configs.lazy"
 
