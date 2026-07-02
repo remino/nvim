@@ -113,7 +113,17 @@ return {
 		"numToStr/Comment.nvim",
 		lazy = false,
 		opts = {
-			-- add any options here
+			pre_hook = function()
+				local cstr = vim.bo.commentstring
+				if cstr == nil or cstr == "" then
+					return
+				end
+
+				local ok, parser = pcall(vim.treesitter.get_parser, vim.api.nvim_get_current_buf())
+				if not ok or parser == nil then
+					return cstr
+				end
+			end,
 		},
 	},
 	{

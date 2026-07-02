@@ -4,6 +4,13 @@ vim.filetype.add {
 	},
 }
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "bats",
+	callback = function()
+		vim.bo.commentstring = "# %s"
+	end,
+})
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*",
 	callback = function()
