@@ -13,7 +13,7 @@ local function get_minuet_config()
 		virtualtext = {
 			auto_trigger_ft = { "*" },
 			keymap = {
-				accept = "<A-A>",
+				accept = "<C-y>",
 				accept_line = "<A-a>",
 				accept_n_lines = "<A-z>",
 				prev = "<A-j>",
@@ -66,6 +66,16 @@ local function predicates_enabled(predicates)
 	return true
 end
 
+local function has_cmp_source(sources, name)
+	for _, source in ipairs(sources or {}) do
+		if source.name == name then
+			return true
+		end
+	end
+
+	return false
+end
+
 return {
 	{
 		"milanglacier/minuet-ai.nvim",
@@ -79,12 +89,37 @@ return {
 			"milanglacier/minuet-ai.nvim",
 		},
 		opts = function(_, opts)
+			local cmp = require("cmp")
 			local minuet_config = get_minuet_config()
 			local provider_config = minuet_config.provider_options[minuet_config.provider] or {}
 			local enabled = predicates_enabled(minuet_config.enable_predicates)
 
 			if enabled and provider_config.end_point ~= "" and provider_config.model ~= "" then
 				require("minuet").setup(minuet_config)
+
+				opts.sources = opts.sources or {}
+				if not has_cmp_source(opts.sources, "minuet") then
+					table.insert(opts.sources, 1, { name = "minuet" })
+				end
+
+				opts.mapping = opts.mapping or {}
+				opts.mapping["<C-y>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.confirm {
+							behavior = cmp.ConfirmBehavior.Insert,
+							select = true,
+						}
+						return
+					end
+
+					local ok, virtualtext = pcall(require, "minuet.virtualtext")
+					if ok and virtualtext.action.is_visible() then
+						virtualtext.action.accept()
+						return
+					end
+
+					fallback()
+				end, { "i", "s" })
 			end
 
 			opts.performance = vim.tbl_deep_extend("force", opts.performance or {}, {
