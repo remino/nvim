@@ -99,6 +99,10 @@ You can also drive this from the shell with `NVIM_AI_BACKEND=copilot nvim` or
 - `minuet-ai.nvim` for inline completions
 - `avante.nvim` with the `ollama` provider for chat/edit actions
 
+Inside Neovim, run `:AiHealth` to open a quick diagnostics buffer for the active
+backend. For deeper plugin checks, use `:checkhealth avante`, `:checkhealth copilot`,
+and `:Copilot status` when applicable.
+
 ### Formatter config
 
 `lua/local/conform.lua` is deep-merged into the shared Conform config:
