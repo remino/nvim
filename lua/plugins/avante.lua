@@ -29,7 +29,6 @@ if backend == "copilot" then
 elseif backend == "ollama" then
 	avante_defaults.enabled = true
 	avante_defaults.opts = vim.tbl_deep_extend("force", avante_defaults.opts, {
-		mode = "legacy",
 		provider = "ollama",
 		auto_suggestions_provider = "ollama",
 		providers = {
