@@ -7,6 +7,15 @@ local avante_defaults = {
 	opts = {
 		provider = "copilot",
 		auto_suggestions_provider = "copilot",
+		windows = {
+			edit = {
+				border = "rounded",
+			},
+			ask = {
+				floating = true,
+				border = "rounded",
+			},
+		},
 		mappings = {
 			suggestion = {
 				accept = "<C-y>",
