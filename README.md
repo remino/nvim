@@ -75,6 +75,30 @@ return {
 }
 ```
 
+### AI backend switching
+
+Use one ignored file to choose the machine-specific AI stack:
+
+```lua
+-- lua/local/ai.lua
+return {
+	backend = "copilot", -- or "ollama"
+}
+```
+
+You can also drive this from the shell with `NVIM_AI_BACKEND=copilot nvim` or
+`NVIM_AI_BACKEND=ollama nvim`.
+
+`copilot` enables:
+
+- `zbirenbaum/copilot.lua` for inline completions
+- `avante.nvim` with the `copilot` provider for chat/edit actions
+
+`ollama` enables:
+
+- `minuet-ai.nvim` for inline completions
+- `avante.nvim` with the `ollama` provider for chat/edit actions
+
 ### Formatter config
 
 `lua/local/conform.lua` is deep-merged into the shared Conform config:
@@ -134,21 +158,23 @@ return {
 
 ### Minuet
 
-Minuet can be customized locally with `lua/local/llm.lua` as the shared source
-of truth, then wired through `lua/local/minuet.lua`:
+When `backend = "ollama"`, Minuet can be customized locally:
 
 ```lua
 -- lua/local/minuet.lua
-local llm = require("local.llm")
-
 return {
 	provider = "openai_fim_compatible",
+	enable_predicates = {
+		function()
+			return true
+		end,
+	},
 	provider_options = {
 		openai_fim_compatible = {
-			api_key = llm.api_key,
+			api_key = "TERM",
 			name = "Ollama",
-			end_point = llm.minuet_endpoint,
-			model = llm.minuet_model,
+			end_point = "http://127.0.0.1:11434/v1/completions",
+			model = "qwen2.5-coder:7b",
 		},
 	},
 }
@@ -157,22 +183,21 @@ return {
 ### Avante
 
 Avante is included as an optional plugin spec, but disabled by default because it
-is provider-specific and has extra build/runtime dependencies. Enable it locally:
+is provider-specific and has extra build/runtime dependencies. It is enabled
+automatically when `backend` is `copilot` or `ollama`, and can be customized
+locally:
 
 ```lua
 -- lua/local/avante.lua
-local llm = require("local.llm")
-
 return {
-	enabled = true,
 	opts = {
 		mode = "legacy",
 		provider = "ollama",
 		auto_suggestions_provider = "ollama",
 		providers = {
 			ollama = {
-				endpoint = llm.endpoint,
-				model = llm.avante_model,
+				endpoint = "http://127.0.0.1:11434",
+				model = "qwen2.5-coder:14b",
 			},
 		},
 	},

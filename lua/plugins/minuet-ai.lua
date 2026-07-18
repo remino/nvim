@@ -1,5 +1,11 @@
 local function get_minuet_config()
+	local ai_provider = require("utils.ai_provider")
 	local config = {
+		enable_predicates = {
+			function()
+				return ai_provider.is("ollama")
+			end,
+		},
 		provider = vim.env.MINUET_PROVIDER or "openai_fim_compatible",
 		n_completions = 1,
 		context_window = 512,
@@ -50,6 +56,16 @@ local function get_minuet_config()
 	return config
 end
 
+local function predicates_enabled(predicates)
+	for _, predicate in ipairs(predicates or {}) do
+		if type(predicate) == "function" and not predicate() then
+			return false
+		end
+	end
+
+	return true
+end
+
 return {
 	{
 		"milanglacier/minuet-ai.nvim",
@@ -65,8 +81,9 @@ return {
 		opts = function(_, opts)
 			local minuet_config = get_minuet_config()
 			local provider_config = minuet_config.provider_options[minuet_config.provider] or {}
+			local enabled = predicates_enabled(minuet_config.enable_predicates)
 
-			if provider_config.end_point ~= "" and provider_config.model ~= "" then
+			if enabled and provider_config.end_point ~= "" and provider_config.model ~= "" then
 				require("minuet").setup(minuet_config)
 			end
 

@@ -1,4 +1,7 @@
-local avante_config = require("utils.local_config").merge({
+local ai_provider = require("utils.ai_provider")
+local backend = ai_provider.get().backend
+
+local avante_defaults = {
 	enabled = false,
 	build = "make",
 	opts = {
@@ -10,7 +13,26 @@ local avante_config = require("utils.local_config").merge({
 			},
 		},
 	},
-}, "local.avante")
+}
+
+if backend == "copilot" then
+	avante_defaults.enabled = true
+elseif backend == "ollama" then
+	avante_defaults.enabled = true
+	avante_defaults.opts = vim.tbl_deep_extend("force", avante_defaults.opts, {
+		mode = "legacy",
+		provider = "ollama",
+		auto_suggestions_provider = "ollama",
+		providers = {
+			ollama = {
+				endpoint = vim.env.OLLAMA_HOST or "http://127.0.0.1:11434",
+				model = vim.env.AVANTE_OLLAMA_MODEL or "",
+			},
+		},
+	})
+end
+
+local avante_config = require("utils.local_config").merge(avante_defaults, "local.avante")
 
 return {
 	{
