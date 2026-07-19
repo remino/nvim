@@ -7,6 +7,12 @@ local avante_defaults = {
 	opts = {
 		provider = "copilot",
 		auto_suggestions_provider = "copilot",
+		behaviour = {
+			auto_add_current_file = true,
+		},
+		selector = {
+			provider = "telescope",
+		},
 		windows = {
 			edit = {
 				border = "rounded",
