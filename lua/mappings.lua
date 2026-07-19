@@ -16,6 +16,7 @@ map("i", "jk", "<ESC>")
 map("n", "<leader>tt", ":Telescope<CR>", { desc = "Open Telescope" })
 map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle Tree" })
 map("i", "<C-b>", "<esc>:NvimTreeToggle<CR>", { desc = "Toggle Tree" })
+map("n", "<leader>at", "<cmd>CopilotToggle<cr>", { desc = "Toggle Copilot" })
 map({ "n", "v" }, "<leader>ca", code_actions_without_disabled, { desc = "Code actions" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename symbol" })
 

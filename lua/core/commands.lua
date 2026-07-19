@@ -6,6 +6,30 @@ vim.api.nvim_create_user_command("AiHealth", function()
 	require("utils.ai_health").show()
 end, {})
 
+local function copilot_effective_enabled()
+	local ok, enabled = pcall(vim.fn["copilot#Enabled"])
+	return ok and enabled == 1
+end
+
+local function notify_copilot_state()
+	local state = copilot_effective_enabled() and "enabled" or "disabled"
+	vim.notify("Copilot " .. state, vim.log.levels.INFO, { title = "Copilot" })
+end
+
+vim.api.nvim_create_user_command("CopilotToggle", function()
+	if copilot_effective_enabled() then
+		vim.cmd "Copilot disable"
+	else
+		vim.cmd "Copilot enable"
+	end
+
+	notify_copilot_state()
+end, {})
+
+vim.api.nvim_create_user_command("CopilotStatus", function()
+	notify_copilot_state()
+end, {})
+
 vim.api.nvim_create_user_command("EslintStatus", function()
 	local mason_cmd = vim.fn.stdpath "data" .. "/mason/bin/vscode-eslint-language-server"
 	local path_cmd = vim.fn.exepath "vscode-eslint-language-server"
