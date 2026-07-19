@@ -12,6 +12,15 @@ local function get_minuet_config()
 		request_timeout = 15,
 		virtualtext = {
 			auto_trigger_ft = { "*" },
+			auto_trigger_ignore_ft = {
+				"TelescopePrompt",
+				"help",
+				"lazy",
+				"mason",
+				"man",
+				"Nvdash",
+				"qf",
+			},
 			keymap = {
 				accept = "<C-y>",
 				accept_line = "<A-a>",
@@ -66,6 +75,31 @@ local function predicates_enabled(predicates)
 	return true
 end
 
+local function ai_completion_allowed(bufnr)
+	bufnr = bufnr or 0
+
+	local blocked_buftypes = {
+		nofile = true,
+		prompt = true,
+		quickfix = true,
+		terminal = true,
+	}
+
+	if blocked_buftypes[vim.bo[bufnr].buftype] then
+		return false
+	end
+
+	return not vim.tbl_contains({
+		"TelescopePrompt",
+		"help",
+		"lazy",
+		"mason",
+		"man",
+		"Nvdash",
+		"qf",
+	}, vim.bo[bufnr].filetype)
+end
+
 local function has_cmp_source(sources, name)
 	for _, source in ipairs(sources or {}) do
 		if source.name == name then
@@ -96,6 +130,16 @@ return {
 
 			if enabled and provider_config.end_point ~= "" and provider_config.model ~= "" then
 				require("minuet").setup(minuet_config)
+
+				local group = vim.api.nvim_create_augroup("MinuetBufferGate", { clear = true })
+				vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+					group = group,
+					callback = function(args)
+						if not ai_completion_allowed(args.buf) then
+							vim.b[args.buf].minuet_virtual_text_auto_trigger = false
+						end
+					end,
+				})
 
 				opts.sources = opts.sources or {}
 				if not has_cmp_source(opts.sources, "minuet") then
