@@ -7,6 +7,7 @@ return {
 		event = "InsertEnter",
 		cmd = { "Copilot" },
 		init = function()
+			vim.g.copilot_enabled = 0
 			vim.g.copilot_no_tab_map = true
 
 			vim.cmd [[imap <silent><script><nowait><expr> <C-Y> copilot#Accept("\<C-Y>")]]
