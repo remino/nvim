@@ -144,6 +144,31 @@ return {
 
 Use `lua/local/lsp_after.lua` for setup that cannot be expressed as data.
 
+### ESLint
+
+The `eslint` LSP only starts when `vscode-eslint-language-server` is available.
+This config checks for it in:
+
+- Mason: `stdpath("data") .. "/mason/bin/vscode-eslint-language-server"`
+- Your shell `PATH`
+
+If neither exists, Neovim skips the `eslint` server instead of showing a spawn
+error.
+
+Inside Neovim, run `:EslintStatus` to check:
+
+- whether Mason has the binary
+- whether it exists on your `PATH`
+- which command path Neovim resolved
+- whether an `eslint` LSP client is attached to the current buffer
+
+If ESLint is missing, install one of these:
+
+- `:MasonInstall eslint-lsp`
+- a global npm package that provides `vscode-eslint-language-server`
+
+After installation, restart Neovim and run `:EslintStatus` again.
+
 ### Orgmode
 
 Orgmode is disabled in the public config because note paths are personal. Enable

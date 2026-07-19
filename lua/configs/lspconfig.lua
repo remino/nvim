@@ -7,6 +7,15 @@ require("nvchad.configs.lspconfig").defaults()
 local nvlsp = require "nvchad.configs.lspconfig"
 local local_config = require "utils.local_config"
 
+local function resolve_cmd(candidates)
+	for _, candidate in ipairs(candidates) do
+		local executable = vim.fn.exepath(candidate)
+		if executable ~= "" then
+			return { executable }
+		end
+	end
+end
+
 local config = local_config.merge({
 	servers = {
 		"astro",
@@ -46,6 +55,21 @@ local function with_defaults(server_config)
 		on_init = nvlsp.on_init,
 		capabilities = nvlsp.capabilities,
 	}, server_config or {})
+end
+
+local eslint_cmd = resolve_cmd {
+	vim.fn.stdpath "data" .. "/mason/bin/vscode-eslint-language-server",
+	"vscode-eslint-language-server",
+}
+
+if eslint_cmd then
+	config.server_configs.eslint = vim.tbl_deep_extend("force", {
+		cmd = eslint_cmd,
+	}, config.server_configs.eslint or {})
+else
+	config.servers = vim.tbl_filter(function(server)
+		return server ~= "eslint"
+	end, config.servers)
 end
 
 -- Configure ts_ls before enabling it
