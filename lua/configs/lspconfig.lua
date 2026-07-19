@@ -26,6 +26,15 @@ local config = local_config.merge({
 		float = {
 			border = "rounded",
 			header = "",
+			focusable = false,
+			scope = "cursor",
+			close_events = {
+				"CursorMoved",
+				"CursorMovedI",
+				"BufHidden",
+				"InsertCharPre",
+				"WinLeave",
+			},
 		},
 	},
 	open_diagnostic_on_cursor_hold = true,
@@ -92,8 +101,10 @@ if config.open_diagnostic_on_cursor_hold then
 
 	-- https://github.com/naborisk/dotfiles/blob/383041e06c070d78e4d990b662cfa13d35ce0a64/nvim/after/plugin/nvim-lspconfig.lua#L169-L172
 	vim.api.nvim_create_autocmd("CursorHold", {
-		command = "lua vim.diagnostic.open_float()",
 		group = lspGroup,
+		callback = function()
+			vim.diagnostic.open_float(nil, config.diagnostic.float)
+		end,
 	})
 end
 
