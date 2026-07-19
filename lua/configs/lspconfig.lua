@@ -11,7 +11,7 @@ local function resolve_cmd(candidates)
 	for _, candidate in ipairs(candidates) do
 		local executable = vim.fn.exepath(candidate)
 		if executable ~= "" then
-			return { executable }
+			return executable
 		end
 	end
 end
@@ -64,7 +64,7 @@ local eslint_cmd = resolve_cmd {
 
 if eslint_cmd then
 	config.server_configs.eslint = vim.tbl_deep_extend("force", {
-		cmd = eslint_cmd,
+		cmd = { eslint_cmd, "--stdio" },
 	}, config.server_configs.eslint or {})
 else
 	config.servers = vim.tbl_filter(function(server)
