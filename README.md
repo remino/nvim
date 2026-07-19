@@ -75,33 +75,25 @@ return {
 }
 ```
 
-### AI backend switching
+### AI setup
 
-Use one ignored file to choose the machine-specific AI stack:
+Use one ignored file to keep Copilot enabled on this machine:
 
 ```lua
 -- lua/local/ai.lua
 return {
-	backend = "copilot", -- or "ollama"
+	backend = "copilot",
 }
 ```
 
-You can also drive this from the shell with `NVIM_AI_BACKEND=copilot nvim` or
-`NVIM_AI_BACKEND=ollama nvim`.
+You can also drive this from the shell with `NVIM_AI_BACKEND=copilot nvim`.
 
-`copilot` enables:
+- `copilot` enables:
 
-- `zbirenbaum/copilot.lua` for inline completions
-- `avante.nvim` with the `copilot` provider for chat/edit actions
+- `github/copilot.vim` for inline completions
 
-`ollama` enables:
-
-- `minuet-ai.nvim` for inline completions
-- `avante.nvim` with the `ollama` provider for chat/edit actions
-
-Inside Neovim, run `:AiHealth` to open a quick diagnostics buffer for the active
-backend. For deeper plugin checks, use `:checkhealth avante`, `:checkhealth copilot`,
-and `:Copilot status` when applicable.
+Inside Neovim, run `:AiHealth` for the quick Copilot checklist. For deeper checks,
+use `:checkhealth copilot` and `:Copilot status`.
 
 ### Formatter config
 
@@ -181,54 +173,6 @@ return {
 	opts = {
 		org_agenda_files = "~/orgfiles/**/*",
 		org_default_notes_file = "~/orgfiles/refile.org",
-	},
-}
-```
-
-### Minuet
-
-When `backend = "ollama"`, Minuet can be customized locally:
-
-```lua
--- lua/local/minuet.lua
-return {
-	provider = "openai_fim_compatible",
-	enable_predicates = {
-		function()
-			return true
-		end,
-	},
-	provider_options = {
-		openai_fim_compatible = {
-			api_key = "TERM",
-			name = "Ollama",
-			end_point = "http://127.0.0.1:11434/v1/completions",
-			model = "qwen2.5-coder:7b",
-		},
-	},
-}
-```
-
-### Avante
-
-Avante is included as an optional plugin spec, but disabled by default because it
-is provider-specific and has extra build/runtime dependencies. It is enabled
-automatically when `backend` is `copilot` or `ollama`, and can be customized
-locally:
-
-```lua
--- lua/local/avante.lua
-return {
-	opts = {
-		mode = "legacy",
-		provider = "ollama",
-		auto_suggestions_provider = "ollama",
-		providers = {
-			ollama = {
-				endpoint = "http://127.0.0.1:11434",
-				model = "qwen2.5-coder:14b",
-			},
-		},
 	},
 }
 ```

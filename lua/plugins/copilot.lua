@@ -2,24 +2,14 @@ local ai_provider = require("utils.ai_provider")
 
 return {
 	{
-		"zbirenbaum/copilot.lua",
+		"github/copilot.vim",
 		enabled = ai_provider.is("copilot"),
 		event = "InsertEnter",
 		cmd = { "Copilot" },
-		opts = {
-			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				keymap = {
-					accept = "<C-y>",
-					next = "<M-]>",
-					prev = "<M-[>",
-					dismiss = "<C-e>",
-				},
-			},
-			panel = {
-				enabled = false,
-			},
-		},
+		init = function()
+			vim.g.copilot_no_tab_map = true
+
+			vim.cmd [[imap <silent><script><nowait><expr> <C-Y> copilot#Accept("\<C-Y>")]]
+		end,
 	},
 }
