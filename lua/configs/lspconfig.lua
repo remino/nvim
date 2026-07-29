@@ -49,6 +49,16 @@ local config = local_config.merge({
 	open_diagnostic_on_cursor_hold = true,
 }, "local.lsp")
 
+-- Some web-focused language servers register large recursive file watch sets.
+-- On macOS Neovim uses fs_event watchers for these registrations, which can
+-- exhaust low per-process fd limits and surface as EMFILE during unrelated work
+-- like format-on-save.
+nvlsp.capabilities.workspace = vim.tbl_deep_extend("force", nvlsp.capabilities.workspace or {}, {
+	didChangeWatchedFiles = {
+		dynamicRegistration = false,
+	},
+})
+
 local function with_defaults(server_config)
 	return vim.tbl_deep_extend("force", {
 		on_attach = nvlsp.on_attach,
