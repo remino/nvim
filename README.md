@@ -23,6 +23,16 @@ startup notification:
 - `:checkhealth` — Neovim, provider, and plugin health checks
 - `:LspBufferStatus` — LSP clients attached to the current buffer
 
+### OSC 52 clipboard
+
+This config enables OSC 52 by default so remote Neovim sessions can use your
+local system clipboard. Some terminals block OSC 52 clipboard reads, which can
+leave Neovim showing `Waiting for OSC 52` when you paste from the `+` register.
+
+- `:Osc52Disable` (or `<leader>uo`) disables OSC 52 for the current session.
+  Normal terminal paste and Neovim's unnamed register still work.
+- `:Osc52Enable` restores it for the current session.
+
 ## Local overrides
 
 This repository is meant to be public and reusable. Machine-specific settings

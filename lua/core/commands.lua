@@ -68,3 +68,30 @@ vim.api.nvim_create_user_command("LspBufferStatus", function()
 
 	vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, { title = "LspBufferStatus" })
 end, {})
+
+local function reload_clipboard_provider()
+	if vim.g.loaded_clipboard_provider ~= nil then
+		vim.g.loaded_clipboard_provider = nil
+		vim.cmd "runtime autoload/provider/clipboard.vim"
+	end
+end
+
+vim.api.nvim_create_user_command("Osc52Disable", function()
+	-- Do both: this config normally forces OSC 52 via g:clipboard, while
+	-- termfeatures prevents Neovim from picking it again automatically.
+	vim.g.clipboard = false
+	local termfeatures = vim.g.termfeatures or {}
+	termfeatures.osc52 = false
+	vim.g.termfeatures = termfeatures
+	reload_clipboard_provider()
+	vim.notify("OSC 52 clipboard disabled for this session", vim.log.levels.INFO, { title = "Clipboard" })
+end, { desc = "Disable OSC 52 clipboard queries for this session" })
+
+vim.api.nvim_create_user_command("Osc52Enable", function()
+	vim.g.clipboard = "osc52"
+	local termfeatures = vim.g.termfeatures or {}
+	termfeatures.osc52 = true
+	vim.g.termfeatures = termfeatures
+	reload_clipboard_provider()
+	vim.notify("OSC 52 clipboard enabled for this session", vim.log.levels.INFO, { title = "Clipboard" })
+end, { desc = "Enable OSC 52 clipboard queries for this session" })
