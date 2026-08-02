@@ -7,6 +7,31 @@ require("nvchad.configs.lspconfig").defaults()
 local nvlsp = require "nvchad.configs.lspconfig"
 local local_config = require "utils.local_config"
 
+-- `vim.lsp.config` / `vim.lsp.enable` arrived in Neovim 0.11.  Keep this
+-- configuration usable on machines that still ship 0.10 by using lspconfig's
+-- established `setup` API there.  This matters especially for freshly cloned
+-- configs on servers, whose Neovim package is often older than this machine's.
+local has_native_lsp_config = vim.lsp.config ~= nil and type(vim.lsp.enable) == "function"
+local lspconfig = has_native_lsp_config and nil or require "lspconfig"
+
+local function setup_server(name, server_config)
+	if has_native_lsp_config then
+		vim.lsp.config(name, server_config)
+		vim.lsp.enable(name)
+		return
+	end
+
+	local server = lspconfig[name]
+	if not server then
+		vim.notify(("LSP '%s' is not provided by the installed nvim-lspconfig"):format(name), vim.log.levels.WARN, {
+			title = "LSP setup",
+		})
+		return
+	end
+
+	server.setup(server_config)
+end
+
 local function resolve_cmd(candidates)
 	for _, candidate in ipairs(candidates) do
 		local executable = vim.fn.exepath(candidate)
@@ -83,7 +108,7 @@ else
 end
 
 -- Configure ts_ls before enabling it
-vim.lsp.config(
+setup_server(
 	"ts_ls",
 	with_defaults(vim.tbl_deep_extend("force", {
 		filetypes = {
@@ -101,7 +126,7 @@ vim.lsp.config(
 	}, config.server_configs.ts_ls or {}))
 )
 
-vim.lsp.config(
+setup_server(
 	"cssls",
 	with_defaults(vim.tbl_deep_extend("force", {
 		settings = {
@@ -114,14 +139,10 @@ vim.lsp.config(
 	}, config.server_configs.cssls or {}))
 )
 
-vim.lsp.enable { "ts_ls", "cssls" }
-
 -- Setup other LSPs with defaults
 -- lsps with default config
 for _, lsp in ipairs(config.servers) do
-	vim.lsp.config(lsp, with_defaults(config.server_configs[lsp]))
-
-	vim.lsp.enable(lsp)
+	setup_server(lsp, with_defaults(config.server_configs[lsp]))
 end
 
 -- Thanks to @naborisk for the following

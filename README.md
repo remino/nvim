@@ -2,6 +2,27 @@
 
 Fork of [NvChad/starter](https://github.com/nvchad/starter) config for Neovim.
 
+## Installing on another machine
+
+Copy or clone the whole repository, including `lazy-lock.json`, then start
+Neovim and run `:Lazy sync`. The lockfile keeps plugin versions identical
+between machines.
+
+This config supports Neovim 0.10 and newer. On a machine with Neovim 0.11+ it
+uses the built-in LSP configuration API; on 0.10 it automatically falls back to
+`nvim-lspconfig`'s compatible API.
+
+### Quiet startup and troubleshooting
+
+Startup should be quiet when the configuration is valid. If something looks
+wrong, inspect it when you choose instead of trying to read a disappearing
+startup notification:
+
+- `:messages` — errors and warnings from this Neovim session
+- `:Lazy` — plugin install/update/load errors
+- `:checkhealth` — Neovim, provider, and plugin health checks
+- `:LspBufferStatus` — LSP clients attached to the current buffer
+
 ## Local overrides
 
 This repository is meant to be public and reusable. Machine-specific settings
