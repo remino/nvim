@@ -48,6 +48,7 @@
   "tailwind-tools.nvim": { "branch": "master", "commit": "fbe982901d4508b0dcd80e07addf0fcb6dab6c49" },
   "telescope.nvim": { "branch": "master", "commit": "427b576c16792edad01a92b89721d923c19ad60f" },
   "tree-sitter-astro": { "branch": "master", "commit": "213f6e6973d9b456c6e50e86f19f66877e7ef0ee" },
+  "tree-sitter-language-injection.nvim": { "branch": "main", "commit": "5f5b962232d189017d040a55eee623daf486b393" },
   "twilight.nvim": { "branch": "main", "commit": "664e752f4a219801265cc3fc18782b457b58c1e1" },
   "ui": { "branch": "v3.0", "commit": "28019401865beffcedc744bb1506d0201b88f2f9" },
   "vim-slim": { "branch": "master", "commit": "a0a57f75f20a03d5fa798484743e98f4af623926" },

@@ -106,6 +106,23 @@ return {
 }
 ```
 
+### Inline language injection
+
+`tree-sitter-language-injection.nvim` highlights annotated code embedded in
+JavaScript and TypeScript strings. The SQL parser is installed automatically;
+put `--sql` at the start of a template literal to activate it:
+
+```typescript
+const query = `
+--sql
+SELECT * FROM users WHERE active = true;
+`
+```
+
+The plugin also supports JavaScript, TypeScript, HTML, CSS, and Python
+annotations in JavaScript, TypeScript, Python, and Rust strings. It writes the
+corresponding Tree-sitter queries under `after/queries/` when Neovim starts.
+
 ### AI setup
 
 Use one ignored file to keep Copilot enabled on this machine:
