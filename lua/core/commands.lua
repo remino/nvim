@@ -95,3 +95,11 @@ vim.api.nvim_create_user_command("Osc52Enable", function()
 	reload_clipboard_provider()
 	vim.notify("OSC 52 clipboard enabled for this session", vim.log.levels.INFO, { title = "Clipboard" })
 end, { desc = "Enable OSC 52 clipboard queries for this session" })
+
+vim.api.nvim_create_user_command("Osc52Toggle", function()
+	if vim.g.clipboard == "osc52" then
+		vim.cmd "Osc52Disable"
+	else
+		vim.cmd "Osc52Enable"
+	end
+end, { desc = "Toggle OSC 52 clipboard queries for this session" })

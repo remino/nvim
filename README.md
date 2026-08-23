@@ -25,13 +25,16 @@ startup notification:
 
 ### OSC 52 clipboard
 
-This config enables OSC 52 by default so remote Neovim sessions can use your
-local system clipboard. Some terminals block OSC 52 clipboard reads, which can
-leave Neovim showing `Waiting for OSC 52` when you paste from the `+` register.
+OSC 52 is disabled by default. Enable it when a remote Neovim session needs to
+use your local system clipboard. Some terminals block OSC 52 clipboard reads,
+which can leave Neovim showing `Waiting for OSC 52` when you paste from the `+`
+register.
 
-- `:Osc52Disable` (or `<leader>uo`) disables OSC 52 for the current session.
-  Normal terminal paste and Neovim's unnamed register still work.
-- `:Osc52Enable` restores it for the current session.
+- `<leader>uo` (Space, then `u`, then `o`) toggles OSC 52 for the current
+  session.
+- `:Osc52Enable`, `:Osc52Disable`, and `:Osc52Toggle` are also available.
+  Normal terminal paste and Neovim's unnamed register still work while it is
+  disabled.
 
 ## Local overrides
 
