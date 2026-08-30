@@ -12,5 +12,10 @@ return {
 
 			vim.cmd [[imap <silent><script><nowait><expr> <C-Y> copilot#Accept("\<C-Y>")]]
 		end,
+		config = function()
+			-- This plugin is loaded after VimEnter, so its VimEnter autocmd never
+			-- runs. Start its client explicitly instead of waiting for :Copilot status.
+			vim.fn["copilot#Init"]()
+		end,
 	},
 }
