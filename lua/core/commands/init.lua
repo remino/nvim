@@ -1,5 +1,13 @@
 local commands = {
 	"file_path",
+	"figlet",
+	"trim_left",
+	"trim_right",
+	"trim",
+	"termino",
+	"termino_mono",
+	"termino_raster",
+	"termino_tabular",
 	"termino_comment",
 	"ai_health",
 	"copilot_toggle",

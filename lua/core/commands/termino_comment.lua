@@ -1,37 +1,27 @@
+local termino = require "core.commands.termino"
+local trim_right = require "core.commands.trim_right"
+
 vim.api.nvim_create_user_command("TerminoComment", function(opts)
-	local heading = opts.args
-	if heading == "" then
-		heading = table.concat(vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false), " ")
-	end
-
-	if heading:match "^%s*$" then
-		vim.notify("Provide a heading or select text to format", vim.log.levels.WARN, { title = "TerminoComment" })
+	local line_count = termino.replace(opts, "termino-raster", "TerminoComment")
+	if not line_count then
 		return
 	end
 
-	local output = vim.fn.systemlist({
-		"figlet",
-		"-f",
-		"/opt/homebrew/opt/termino/share/figlet/termino-raster.flf",
-		"-w",
-		"120",
-	}, heading)
+	local line1 = opts.line1
+	local line2 = line1 + line_count - 1
+	trim_right.range(line1, line2)
 
-	if vim.v.shell_error ~= 0 then
-		vim.notify(table.concat(output, "\n"), vim.log.levels.ERROR, { title = "TerminoComment" })
-		return
+	local ok, comment = pcall(require, "Comment.api")
+	if ok then
+		vim.api.nvim_win_set_cursor(0, { line1, 0 })
+		comment.comment.linewise.count(line_count)
+	elseif vim.bo.commentstring ~= "" then
+		vim.cmd { cmd = "normal", args = { "gcc" }, range = { line1, line2 } }
+	else
+		vim.notify("Cannot comment: buffer has no commentstring", vim.log.levels.ERROR, { title = "TerminoComment" })
 	end
-
-	local formatted = {}
-	for _, line in ipairs(output) do
-		if not line:match "^%s*$" then
-			formatted[#formatted + 1] = "# " .. line:gsub("%s+$", "")
-		end
-	end
-
-	vim.api.nvim_buf_set_lines(0, opts.line1 - 1, opts.line2, false, formatted)
 end, {
-	desc = "Replace text with a Termino Figlet heading",
+	desc = "Replace text with a trimmed, commented Termino Raster heading",
 	nargs = "*",
 	range = true,
 })
