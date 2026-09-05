@@ -14,6 +14,7 @@ local commands = {
 	"copilot_status",
 	"eslint_status",
 	"lsp_buffer_status",
+	"modeline",
 	"osc52_disable",
 	"osc52_enable",
 	"osc52_toggle",
