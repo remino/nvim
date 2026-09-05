@@ -1,6 +1,7 @@
 local commands = {
 	"file_path",
 	"figlet",
+	"indent",
 	"trim_left",
 	"trim_right",
 	"trim",
